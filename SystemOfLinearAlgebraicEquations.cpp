@@ -2,9 +2,6 @@
 using namespace std;
 
 namespace SLAE {
-	vector<int>idxs;
-	vector<bool>used;
-
 	template<typename T>
 	bool is_zero(const T& x, const T& epsilon) {
 		return abs(x) <= epsilon;
@@ -43,9 +40,6 @@ namespace SLAE {
 		if (pivot_end == -1) {
 			pivot_end = m;
 		}
-		used.resize(pivot_end);
-		std::fill(used.begin(), used.end(), false);
-		idxs.clear();
 
 		for (int col = 0; col < pivot_end; ++col) {
 			// Partial Pivoting
@@ -81,8 +75,6 @@ namespace SLAE {
 				}
 			}
 			rank++;
-			used[col] = true;
-			idxs.push_back(col);
 			if (rank == n) {
 				break;
 			}
@@ -140,12 +132,11 @@ namespace SLAE {
 		*/
 		solution.resize(m);
 		for (int i = rank - 1; i >= 0; --i) {
-			int col = idxs[i];
-			solution[col] = aug[i][m];
-			for (int j = col + 1; j < m; ++j) {
-				solution[col] -= aug[i][j] * solution[j];
+			solution[i] = aug[i][m];
+			for (int j = i + 1; j < m; ++j) {
+				solution[i] -= aug[i][j] * solution[j];
 			}
-			solution[col] /= aug[i][col];
+			solution[i] /= aug[i][i];
 		}
 		return solution;
 	}
@@ -187,8 +178,7 @@ namespace SLAE {
 		*/
 		solution.resize(m);
 		for (int i = 0; i < rank; ++i) {
-			int col = idxs[i];
-			solution[m - col - 1] = aug[i][m] / aug[i][col];
+			solution[m - i - 1] = aug[i][m] / aug[i][i];
 		}
 		return solution;
 	}
