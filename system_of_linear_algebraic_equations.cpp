@@ -235,7 +235,6 @@ namespace SLAE {
 	}
 }
 int main() {
-	std::ios::sync_with_stdio(false); std::cin.tie(nullptr);
 	vector<vector<double>>a = {
 		{1, 2, 1},
 		{2 , -3, -1},

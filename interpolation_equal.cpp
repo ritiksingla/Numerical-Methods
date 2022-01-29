@@ -157,7 +157,6 @@ namespace Interpolation {
 } // namespace Interpolation
 using namespace Interpolation;
 int main() {
-	std::ios::sync_with_stdio(false); std::cin.tie(nullptr);
 	int n; cin >> n;
 	vector<double>x(n), y(n);
 	for (auto& it : x)cin >> it;
